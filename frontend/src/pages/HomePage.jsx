@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar'
+import { useAuth } from '../lib/authContext'; // Import the useAuth hook
 import RateLimitedUI from '../components/RateLimitedUI';
 import { toast } from 'react-hot-toast';
 import NoteCard from '../components/NoteCard';
@@ -7,35 +7,44 @@ import api from '../lib/axios.js';
 import NotesNotFound from '../components/NotesNotfound';
 
 const HomePage = () => {
+  const { token } = useAuth(); // Get the token from AuthContext
   const [isRateLimited, setIsRateLimited] = useState(false);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNotes = async () => {
+      if (!token) {
+        toast.error("You are not logged in. Please log in to view your notes.");
+        return;
+      }
+
       try {
-        const res = await api.get("/notes");
+        const res = await api.get("/notes", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Use the token from AuthContext
+          },
+        });
         console.log(res.data);
         setNotes(res.data);
-        setIsRateLimited(false);
+        setIsRateLimited(false); // Reset rate limiting after success
       } catch (error) {
-        console.log("Error fetching notes:", error);
-        console.log(error);
+        console.log("Error fetching notes:", error); // Log the entire error object
+        console.log("Error response:", error.response); // Log the response object, if available
         if (error.response?.status === 429) {
           setIsRateLimited(true);
-        } else {
+        } else if (notes.length === 0) {
           toast.error("Failed to load notes.");
         }
       } finally {
         setLoading(false);
       }
-    }
+    };
     fetchNotes();
-  },[])
+  }, [token]);
 
   return (
     <div className='min-h-screen'>
-      <Navbar />
       {isRateLimited && <RateLimitedUI />}
       <div className='max-w-7xl mx-auto p-4 mt-6'>
         {loading && <div className='text-center text-primary py-10'>Loading notes...</div>}
@@ -50,7 +59,7 @@ const HomePage = () => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

@@ -1,21 +1,41 @@
-import React from 'react'
-import { Route,Routes } from 'react-router'
-import HomePage from './pages/HomePage'
-import CreatePage from './pages/CreatePage'
-import NoteDetailPage from './pages/NoteDetailPage'
-// import { toast } from 'react-hot-toast'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router';
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider, useAuth } from './lib/authContext.jsx';
+import HomePage from './pages/HomePage.jsx';
+import CreatePage from './pages/CreatePage.jsx';
+import NoteDetailPage from './pages/NoteDetailPage.jsx';
+import LoginPage from './pages/auth/LoginPage.jsx';
+import SignupPage from './pages/auth/SignupPage.jsx';
+import Navbar from './components/Navbar.jsx';
+
+const PrivateRoute = ({ children }) => {
+    const { isLoggedIn } = useAuth();
+    console.log("Is user logged in:", isLoggedIn); // Debugging log
+    return isLoggedIn ? children : <Navigate to="/login" />;
+};
 
 const App = () => {
-  return (
-    <div className='relative h-full w-full'>
-      <div className='absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_60%,#00FF9D40_100%)]' />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/create" element={<CreatePage />} />
-        <Route path="/note/:id" element={<NoteDetailPage />} />
-      </Routes>
-    </div>
-  )
-}
+    return (
+        <div className="relative h-full w-full">
+            <Navbar /> {/* Navbar is rendered globally here */}
+            <Toaster />
+            <Routes>
+                <Route path="/" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+                <Route path="/create" element={<PrivateRoute><CreatePage /></PrivateRoute>} />
+                <Route path="/note/:id" element={<PrivateRoute><NoteDetailPage /></PrivateRoute>} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+            </Routes>
+        </div>
+    );
+};
 
-export default App
+const AppWrapper = () => (
+    <BrowserRouter>
+        <AuthProvider>
+            <App />
+        </AuthProvider>
+    </BrowserRouter>
+);
+
+export default AppWrapper;
