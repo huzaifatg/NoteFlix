@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage.jsx';
 import CreatePage from './pages/CreatePage.jsx';
 import NoteDetailPage from './pages/NoteDetailPage.jsx';
 import LoginPage from './pages/auth/LoginPage.jsx';
-import SignupPage from './pages/auth/SignupPage.jsx';
+import SignupPage from './pages/auth/SignUpPage.jsx';
 import Navbar from './components/Navbar.jsx';
 
 const PrivateRoute = ({ children }) => {
