@@ -20,20 +20,21 @@ const HomePage = () => {
       }
 
       try {
+        console.log("Token:", token); // Debugging log
         const res = await api.get("/notes", {
           headers: {
             Authorization: `Bearer ${token}`, // Use the token from AuthContext
           },
         });
-        console.log(res.data);
+        console.log("API Response:", res.data); // Debugging log
         setNotes(res.data);
         setIsRateLimited(false); // Reset rate limiting after success
       } catch (error) {
-        console.log("Error fetching notes:", error); // Log the entire error object
-        console.log("Error response:", error.response); // Log the response object, if available
+        console.log("Error fetching notes:", error); // Debugging log
+        console.log("Error response:", error.response); // Debugging log
         if (error.response?.status === 429) {
           setIsRateLimited(true);
-        } else if (notes.length === 0) {
+        } else {
           toast.error("Failed to load notes.");
         }
       } finally {
@@ -41,7 +42,7 @@ const HomePage = () => {
       }
     };
     fetchNotes();
-  }, [token]);
+  }, [token]); // Only depend on the token
 
   return (
     <div className='min-h-screen'>
