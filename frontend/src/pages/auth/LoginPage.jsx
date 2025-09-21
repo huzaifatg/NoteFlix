@@ -15,14 +15,16 @@ const LoginPage = () => {
         e.preventDefault();
         setLoading(true);
 
+        console.log("Login request data:", { email, password }); // Debugging log
+
         try {
             const { data } = await api.post("/auth/login", { email, password });
             login(data.token); // Update the auth state with the token
             toast.success("Logged in successfully");
             navigate("/"); // Redirect to the homepage
         } catch (error) {
-            toast.error("Invalid email or password");
-            console.error("Login error:", error);
+            console.error("Login error:", error.response?.data || error.message); // Log the actual error
+            toast.error(error.response?.data?.message || "Something went wrong. Please try again.");
         } finally {
             setLoading(false);
         }
