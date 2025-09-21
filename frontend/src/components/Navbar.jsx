@@ -17,7 +17,9 @@ const Navbar = () => {
             <div className='mx-auto max-w-6xl p-4'>
                 <div className='flex items-center justify-between'>
                     <Link to='/' className='text-2xl font-bold text-primary font-mono tracking-tight'>
-                        NoteFlix
+                    <div className="flex">
+                        <img src="/nlogo.png" alt="Logo" className="h-8 px-2" />
+                    </div>
                     </Link>
                     <div className='flex items-center gap-4'>
                         {isLoggedIn ? (
