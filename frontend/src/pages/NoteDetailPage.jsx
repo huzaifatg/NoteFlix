@@ -3,6 +3,9 @@ import { Link, useNavigate, useParams } from "react-router";
 import api from "../lib/axios";
 import toast from "react-hot-toast";
 import { ArrowLeftIcon, LoaderIcon, Trash2Icon } from "lucide-react";
+import Input from "../components/ui/Input.jsx";
+import TextArea from "../components/ui/TextArea.jsx";
+import Button from "../components/ui/Button.jsx";
 
 const NoteDetailPage = () => {
   const [note, setNote] = useState(null);
@@ -91,16 +94,16 @@ const NoteDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-base-200 flex items-center justify-center">
-        <LoaderIcon className="animate-spin size-10" />
+      <div className="min-h-screen flex items-center justify-center">
+        <LoaderIcon className="animate-spin w-10 h-10 text-blue-600" />
       </div>
     );
   }
 
   if (!note) {
     return (
-      <div className="min-h-screen bg-base-200 flex items-center justify-center">
-        <p className="text-center text-error">
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-center text-red-600 font-medium">
           Failed to load the note. Please try again.
         </p>
       </div>
@@ -108,56 +111,60 @@ const NoteDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <Link to="/" className="btn btn-ghost">
-              <ArrowLeftIcon className="h-5 w-5" />
-              Back to Notes
-            </Link>
-            <button
-              onClick={handleDelete}
-              className="btn btn-error btn-outline"
-            >
-              <Trash2Icon className="h-5 w-5" />
-              Delete Note
-            </button>
-          </div>
-          <div className="card bg-base-100">
-            <div className="card-body">
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Title</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Note Title"
-                  className="input input-bordered"
-                  value={note?.title || ""}
-                  onChange={(e) => setNote({ ...note, title: e.target.value })}
-                />
-              </div>
-              <div className="form-control mb-4">
-                <label className="label">
-                  <span className="label-text">Content</span>
-                </label>
-                <textarea
-                  placeholder="Write your note here..."
-                  className="textarea textarea-bordered h-32"
-                  value={note?.content || ""}
-                  onChange={(e) => setNote({ ...note, content: e.target.value })}
-                />
-              </div>
-              <div className="card-actions justify-end">
-                <button
-                  className="btn btn-primary"
-                  disabled={saving}
-                  onClick={handleSave}
-                >
-                  {saving ? "Saving..." : "Save Changes"}
-                </button>
-              </div>
+    <div>
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 font-medium transition-colors">
+            <ArrowLeftIcon className="w-5 h-5" />
+            Back to Notes
+          </Link>
+          <button
+            onClick={handleDelete}
+            className="inline-flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg font-medium transition-colors"
+          >
+            <Trash2Icon className="w-5 h-5" />
+            Delete Note
+          </button>
+        </div>
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Title
+              </label>
+              <Input
+                type="text"
+                placeholder="Note Title"
+                value={note?.title || ""}
+                onChange={(e) => setNote({ ...note, title: e.target.value })}
+                className="w-full border border-slate-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-2xl font-bold"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Content
+              </label>
+              <TextArea
+                placeholder="Write your note here..."
+                className="w-full border border-slate-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none min-h-96 leading-relaxed"
+                value={note?.content || ""}
+                onChange={(e) => setNote({ ...note, content: e.target.value })}
+              />
+            </div>
+            <div className="flex justify-end gap-3 pt-4">
+              <Link 
+                to="/" 
+                className="px-6 py-3 text-slate-700 hover:bg-slate-100 rounded-lg font-medium transition-colors"
+              >
+                Cancel
+              </Link>
+              <Button
+                disabled={saving}
+                onClick={handleSave}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg hover:scale-105 active:scale-95 transition-all shadow-md font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {saving ? "Saving..." : "Save Changes"}
+              </Button>
             </div>
           </div>
         </div>

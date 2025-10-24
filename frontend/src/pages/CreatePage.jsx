@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router';
 import { ArrowLeftIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../lib/axios.js';
+import Input from '../components/ui/Input.jsx';
+import TextArea from '../components/ui/TextArea.jsx';
+import Button from '../components/ui/Button.jsx';
 
 const CreatePage = () => {
   const [title, setTitle] = useState("");
@@ -27,7 +30,7 @@ const CreatePage = () => {
       navigate("/");
     } catch (error) {
       console.log("Error creating note:", error);
-      if (error.response.status === 429) {
+      if (error?.response?.status === 429) {
         toast.error("Slow down! You're creating notes too quickly!", { duration: 4000, icon: '⚠️' });
       } else {
         toast.error("Failed to create note. Please try again.");
@@ -38,53 +41,56 @@ const CreatePage = () => {
   }
 
   return (
-    <div className='min-h-screen bg-base-200'>
-      <div className='container mx-auto px-4 py-8'>
-        <div className='max-w-2xl mx-auto'>
-          <Link to={"/"} className='btn btn-ghost mb-6'>
-            <ArrowLeftIcon className='size-5' />
-            Back to Notes
-          </Link>
-          <div className='card bg-base-100'>
-            <div className='card-body'>
-              <h2 className='card-title text-2xl mb-4'>Create a New Note</h2>
-              <form onSubmit={handleSubmit}>
-                <div className='form-control mb-4'>
-                  <label className='label'>
-                    <span className='label-text'>
-                      Title
-                    </span>
-                  </label>
-                  <input 
-                  type="text" 
-                  placeholder='Note Title' 
-                  className='input input-bordered' 
-                  value={title} onChange={(e) => setTitle(e.target.value)} 
-                  />
-                </div>
-
-                <div className='form-control mb-4'>
-                  <label className='label'>
-                    <span className='label-text'>
-                      Content
-                    </span>
-                  </label>
-                  <textarea
-                  placeholder='Write your note here...'
-                  className='textarea textarea-bordered h-32'
-                  value={content} 
-                  onChange={(e) => setContent(e.target.value)}
-                  />
-                </div>
-
-                <div className="card-actions justify-end">
-                  <button type="submit" className="btn btn-primary" disabled={loading}>
-                    {loading ? "Creating..." : "Create Note"} 
-                  </button>
-                </div>
-              </form>
+    <div>
+      <div className='max-w-3xl mx-auto'>
+        <Link to={"/"} className='inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 font-medium mb-6 transition-colors'>
+          <ArrowLeftIcon className='w-5 h-5' />
+          Back to Notes
+        </Link>
+        <div className='bg-white rounded-xl shadow-sm border border-slate-200 p-8'>
+          <h2 className='text-2xl font-bold text-slate-900 mb-6'>Create a New Note</h2>
+          <form onSubmit={handleSubmit} className='space-y-6'>
+            <div>
+              <label className='block text-sm font-medium text-slate-700 mb-2'>
+                Title
+              </label>
+              <Input 
+                type="text" 
+                placeholder='Enter note title' 
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full border border-slate-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-lg"
+              />
             </div>
-          </div>
+
+            <div>
+              <label className='block text-sm font-medium text-slate-700 mb-2'>
+                Content
+              </label>
+              <TextArea
+                placeholder='Write your note here...'
+                className='w-full border border-slate-300 rounded-lg px-4 py-3 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none min-h-64 leading-relaxed'
+                value={content} 
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </div>
+
+            <div className="flex justify-end gap-3">
+              <Link 
+                to="/" 
+                className="px-6 py-3 text-slate-700 hover:bg-slate-100 rounded-lg font-medium transition-colors"
+              >
+                Cancel
+              </Link>
+              <Button 
+                type="submit" 
+                disabled={loading}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg hover:scale-105 active:scale-95 transition-all shadow-md font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? "Creating..." : "Create Note"}
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

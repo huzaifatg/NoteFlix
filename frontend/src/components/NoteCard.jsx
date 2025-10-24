@@ -24,28 +24,41 @@ const NoteCard = ({ note, setNotes }) => {
   return (
     <Link
       to={`/note/${note._id}`}
-      className="card bg-base-100 hover:shadow-lg transition-all duration-200 border-t-4 border-solid border-[#03d718]"
-      onClick={() => console.log("Navigating to note ID:", note._id)} // Debugging log
+      className="group block bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 relative overflow-hidden"
     >
-      <div className="card-body">
-        <h3 className="card-title text-base-content">{note.title}</h3>
-        <p className="text-base-content/70 line-clamp-3">{note.content}</p>
-        <div className="card-actions justify-between items-center mt-4">
-          <span className="text-sm text-base-content/60">
+      {/* Gradient left border */}
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 via-indigo-600 to-purple-600" />
+      
+      <div className="flex flex-col gap-3">
+        <h3 className="text-lg font-semibold text-slate-900 pr-16">{note.title}</h3>
+        <p className="text-sm text-slate-600 line-clamp-2 leading-relaxed">{note.content}</p>
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-xs text-slate-400">
             {formatDate(new Date(note.createdAt))}
           </span>
-          <div className="flex items-center gap-1">
-            <PenSquareIcon className="size-4" />
-            <div onClick={(e) => e.stopPropagation()}>
-              <button
-                className="btn btn-ghost btn-xs text-error"
-                onClick={(e) => handleDelete(e, note._id)}
-              >
-                <Trash2Icon className="size-4" />
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
+      
+      {/* Actions - Hidden by default, shown on hover */}
+      <div className="absolute top-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Navigate to edit
+          }}
+          className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+          title="Edit note"
+        >
+          <PenSquareIcon className="w-4 h-4 text-slate-600" />
+        </button>
+        <button
+          onClick={(e) => handleDelete(e, note._id)}
+          className="p-2 hover:bg-red-50 rounded-lg transition-colors"
+          title="Delete note"
+        >
+          <Trash2Icon className="w-4 h-4 text-red-600" />
+        </button>
       </div>
     </Link>
   );

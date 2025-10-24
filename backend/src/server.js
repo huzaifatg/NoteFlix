@@ -6,6 +6,7 @@ import rateLimiter from "./middleware/rateLimiter.js";
 import cors from "cors";
 import path from "path";
 import authRoutes from "./routes/authRoutes.js"; // Import new auth routes
+import userRoutes from "./routes/userRoutes.js"; // Import user routes
 import {protect} from "./middleware/authMiddleware.js";
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(rateLimiter);
 
 // Auth Routes
 app.use("/api/auth", authRoutes); // Add new authentication routes
+app.use("/api/user", userRoutes);
 
 // Protected Routes
 app.use("/api/notes", protect, notesRoutes); // Apply the 'protect' middleware here
