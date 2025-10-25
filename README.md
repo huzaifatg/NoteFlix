@@ -12,13 +12,6 @@
 
 ## ✨ Features
 
-### 🎨 **Beautiful UI/UX**
-- **Custom Gradient Theme** - Professional blue-to-purple gradient design system
-- **Modern Typography** - Inter font family for clean, readable text
-- **Smooth Animations** - Floating cards, hover effects, and transitions
-- **Responsive Design** - Optimized for desktop, tablet, and mobile devices
-- **Custom Branding** - Gradient favicon and BookText icon throughout
-
 ### 📚 **Core Functionality**
 - **Create & Manage Notes** - Rich text input with large, comfortable fields
 - **Real-time Search** - Instantly filter notes by title or content
@@ -31,13 +24,6 @@
 - **Password Hashing** - bcrypt with 10 salt rounds
 - **Protected Routes** - Middleware-based API and frontend route protection
 - **Rate Limiting** - Upstash Redis limiting (100 requests/60s)
-
-### 🎯 **User Experience**
-- **Landing Page** - Stunning marketing page with animated features showcase
-- **Dashboard Stats** - Quick overview of total notes and weekly activity
-- **Toast Notifications** - Beautiful feedback for all user actions
-- **Loading States** - Animated spinners for better perceived performance
-- **Gradient Buttons** - Consistent, eye-catching call-to-action elements
 
 ---
 
@@ -197,4 +183,4 @@ npm run delete-everything
 - ✅ **Input Validation** - Email format validation, required fields
 - ✅ **CORS Configuration** - Controlled cross-origin access
 
-
+---
