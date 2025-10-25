@@ -43,28 +43,9 @@
 
 ## 🏗️ Tech Stack
 
-### **Frontend**
-- **React 19** - Latest React with modern hooks and concurrent features
-- **Vite** - Lightning-fast build tool and dev server
-- **React Router v7** - Client-side routing with protected routes
-- **TailwindCSS 3.4** - Utility-first CSS framework
-- **DaisyUI 4.12** - Component library with custom "noteflix" theme
-- **Axios** - Promise-based HTTP client
-- **React Hot Toast** - Toast notification system
-- **Lucide React** - Modern icon library
+**Frontend:** React, Vite, React Router, TailwindCSS, DaisyUI, Axios, Lucide React
 
-### **Backend**
-- **Node.js & Express** - RESTful API server
-- **MongoDB & Mongoose** - NoSQL database with ODM
-- **JWT** - JSON Web Tokens for stateless authentication
-- **bcrypt** - Secure password hashing
-- **Upstash Redis** - Serverless rate limiting
-- **CORS** - Cross-origin resource sharing
-
-### **Development Tools**
-- **Nodemon** - Auto-restart development server
-- **ESLint** - Code linting for React
-- **PostCSS & Autoprefixer** - CSS processing
+**Backend:** Node.js, Express, MongoDB, Mongoose, JWT, bcrypt, Upstash Redis
 
 ---
 
@@ -93,95 +74,45 @@ NoteFlix/
 │   │   │   ├── notesRoutes.js     # Note endpoints
 │   │   │   └── userRoutes.js      # User endpoints
 │   │   └── utils/                 # Database utilities
+│   │       ├── viewDatabase.js    # View all users & notes
+│   │       ├── cleanupUsers.js    # Find duplicate users
+│   │       ├── deleteAllUsers.js  # Delete all users
+│   │       └── deleteEverything.js # Delete users & notes
 │   └── package.json
 │
 └── frontend/
+    ├── public/
+    │   └── favicon.svg            # Custom gradient favicon
     ├── src/
     │   ├── components/            # Reusable components
     │   │   ├── Navbar.jsx
     │   │   ├── NoteCard.jsx
+    │   │   ├── NotesNotfound.jsx
+    │   │   ├── RateLimitedUI.jsx
+    │   │   ├── ThemeToggle.jsx
     │   │   └── ui/                # UI primitives
+    │   │       ├── Button.jsx
+    │   │       ├── Card.jsx
+    │   │       ├── Input.jsx
+    │   │       └── TextArea.jsx
     │   ├── pages/                 # Page components
     │   │   ├── LandingPage.jsx
     │   │   ├── HomePage.jsx
     │   │   ├── CreatePage.jsx
     │   │   ├── NoteDetailPage.jsx
     │   │   └── auth/
+    │   │       ├── LoginPage.jsx
+    │   │       └── SignUpPage.jsx
     │   ├── lib/                   # Utilities & context
     │   │   ├── authContext.jsx
     │   │   ├── axios.js
     │   │   └── utils.js
-    │   └── App.jsx                # Route configuration
+    │   ├── App.jsx                # Route configuration
+    │   ├── index.css              # Global styles
+    │   └── main.jsx
+    ├── tailwind.config.js         # Custom theme config
     └── package.json
 ```
-
----
-
-## 🚀 Getting Started
-
-### **Prerequisites**
-- Node.js (v16 or higher)
-- MongoDB (local or Atlas cluster)
-- Upstash Redis account (free tier available)
-
-### **Installation**
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/huzaifatg/NoteFlix.git
-   cd NoteFlix
-   ```
-
-2. **Install dependencies**
-   ```bash
-   # Install all dependencies (backend + frontend)
-   npm run build
-   ```
-
-3. **Set up environment variables**
-
-   Create `.env` file in the `backend/` directory:
-   ```env
-   # MongoDB
-   MONGO_URI=your_mongodb_connection_string
-   
-   # JWT Secret
-   JWT_SECRET=your_super_secret_jwt_key
-   
-   # Server
-   PORT=5001
-   NODE_ENV=development
-   
-   # Upstash Redis
-   UPSTASH_REDIS_REST_URL=your_upstash_redis_url
-   UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
-   ```
-
-4. **Run the application**
-
-   **Development mode** (separate terminals):
-   ```bash
-   # Terminal 1 - Backend (port 5001)
-   cd backend
-   npm run dev
-   
-   # Terminal 2 - Frontend (port 5173)
-   cd frontend
-   npm run dev
-   ```
-   
-   **Production mode**:
-   ```bash
-   # Build frontend
-   npm run build
-   
-   # Start server (serves frontend + API)
-   npm start
-   ```
-
-5. **Access the application**
-   - Frontend: `http://localhost:5173` (development)
-   - Backend API: `http://localhost:5001/api`
 
 ---
 
@@ -257,26 +188,6 @@ npm run delete-everything
 
 ---
 
-## 🎨 Design System
-
-### **Color Palette**
-- **Primary:** Blue (#3B82F6) - Trust, professionalism
-- **Secondary:** Purple (#8B5CF6) - Creativity, modern
-- **Accent:** Cyan (#06B6D4) - Highlights
-- **Gradients:** Blue-to-purple transitions
-
-### **Typography**
-- **Font Family:** Inter (Google Fonts)
-- **Font Smoothing:** Enabled for crisp rendering
-
-### **Components**
-- **Buttons:** Gradient backgrounds with hover effects
-- **Cards:** White backgrounds with subtle shadows
-- **Note Cards:** Gradient left border (blue → indigo → purple)
-- **Inputs:** Blue focus rings with smooth transitions
-
----
-
 ## 🔐 Security Features
 
 - ✅ **Password Hashing** - bcrypt with 10 salt rounds
@@ -286,67 +197,4 @@ npm run delete-everything
 - ✅ **Input Validation** - Email format validation, required fields
 - ✅ **CORS Configuration** - Controlled cross-origin access
 
----
 
-## 📸 Screenshots
-
-<!-- Add screenshots here when available -->
-_Coming soon: Landing page, Dashboard, Note detail, and mobile views_
-
----
-
-## 🚀 Deployment
-
-### **Frontend (Vercel/Netlify)**
-1. Build the frontend: `cd frontend && npm run build`
-2. Deploy the `dist/` folder
-3. Set environment variables (API base URL)
-
-### **Backend (Render/Railway/Heroku)**
-1. Set `NODE_ENV=production`
-2. Configure environment variables
-3. Deploy from `backend/` directory
-4. Ensure MongoDB and Upstash are accessible
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-## 👨‍💻 Author
-
-**Huzaifa**
-- GitHub: [@huzaifatg](https://github.com/huzaifatg)
-- Repository: [NoteFlix](https://github.com/huzaifatg/NoteFlix)
-
----
-
-## 🙏 Acknowledgments
-
-- React team for React 19
-- TailwindCSS for the amazing utility framework
-- Upstash for serverless Redis
-- MongoDB for the flexible database
-- All open-source contributors
-
----
-
-<div align="center">
-  <p>Made with ❤️ and ☕</p>
-  <p>⭐ Star this repo if you find it helpful!</p>
-</div>
