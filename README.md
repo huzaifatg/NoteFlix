@@ -20,10 +20,12 @@
 - **Empty States** - Helpful prompts when no notes are found
 
 ### 🔐 **Security & Authentication**
-- **JWT Authentication** - Secure token-based user sessions (7-day expiry)
+- **JWT Authentication** - Secure token-based user sessions with 7-day token expiry
 - **Password Hashing** - bcrypt with 10 salt rounds
-- **Protected Routes** - Middleware-based API and frontend route protection
-- **Rate Limiting** - Upstash Redis limiting (100 requests/60s)
+- **Protected Routes** - Middleware verification on both API and frontend
+- **Rate Limiting** - 100 requests per 60 seconds via Upstash Redis
+- **Input Validation** - Email format validation and required fields
+- **CORS Configuration** - Controlled cross-origin access
 
 ---
 
@@ -171,16 +173,5 @@ npm run delete-all-users
 # Delete everything (users + notes)
 npm run delete-everything
 ```
-
----
-
-## 🔐 Security Features
-
-- ✅ **Password Hashing** - bcrypt with 10 salt rounds
-- ✅ **JWT Authentication** - 7-day token expiry
-- ✅ **Protected Routes** - Middleware verification on API and frontend
-- ✅ **Rate Limiting** - 100 requests per 60 seconds via Upstash Redis
-- ✅ **Input Validation** - Email format validation, required fields
-- ✅ **CORS Configuration** - Controlled cross-origin access
 
 ---
