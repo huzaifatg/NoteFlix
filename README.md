@@ -2,12 +2,6 @@
 
 > A modern, full-stack note-taking application built with the MERN stack, featuring a beautiful gradient UI, real-time search, and secure authentication.
 
-![NoteFlix Banner](https://img.shields.io/badge/MERN-Stack-blue?style=for-the-badge)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
-![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb)
-![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
-
 ---
 
 ## ✨ Features
